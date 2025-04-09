@@ -1,0 +1,24 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h2>{{ question.title }}</h2>
+<p>{{ question.description }}</p>
+<p>Asked by: {{ question.user.username }}</p>
+<hr>
+<h3>Answers</h3>
+{% for a in answers %}
+<p>{{ a.content }} - {{ a.user.username }} | Likes: {{ a.total_likes }}</p>
+{% if user.is_authenticated %}
+<form action="{% url 'like_answer' a.id %}" method="post">{% csrf_token %}
+<button type="submit">Like</button>
+</form>
+{% endif %}
+<hr>
+{% endfor %}
+{% if user.is_authenticated %}
+<h4>Add an Answer</h4>
+<form method="post">{% csrf_token %}
+{{ form.as_p }}
+<button type="submit">Submit</button>
+</form>
+{% endif %}
+{% endblock %}

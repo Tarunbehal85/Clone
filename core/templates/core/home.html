@@ -1,0 +1,9 @@
+{% extends 'core/base.html' %}
+{% block content %}
+<h2>All Questions</h2>
+<ul>
+{% for q in questions %}
+  <li><a href="{% url 'view_question' q.id %}">{{ q.title }}</a> by {{ q.user.username }}</li>
+{% endfor %}
+</ul>
+{% endblock %}
